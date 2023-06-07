@@ -23,7 +23,7 @@ void Tile_Climb::Init()
     tile_img.Load(L"¸®¼Ò½º\\¹åÁÙ.png");
 
     size.x = 30;
-    size.y = 720;
+    size.y = 600;
 
 }
 
@@ -43,19 +43,19 @@ void Tile_Climb::Update()
         RECT intersect_rect;
 
 
+
         if (IntersectRect(&intersect_rect, &p_rect, &tile_rect))
         {
             p->landing1 = true;
             p->intersect_sadari1 = true;
-       
         }
-
         else
         {
+            
             p->Gravity1 = true;
             p->intersect_sadari1 = false;
+            
         }
-
 
 
         //===============================================================================================/

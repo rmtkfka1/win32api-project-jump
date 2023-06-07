@@ -62,6 +62,8 @@ void ObjectManager::Add(Tile_Climb* object)
 
 }
 
+
+
 void ObjectManager::Add(Player* object)
 {
 	if (object == nullptr) return;
@@ -213,6 +215,8 @@ void ObjectManager::Remove(Tile_Climb* object)
 
 }
 
+
+
 void ObjectManager::Remove(Player* object)
 {
 	if (object == nullptr)
@@ -332,6 +336,7 @@ void ObjectManager::Clear()
 	std::for_each(_vTileMove.begin(), _vTileMove.end(), [=](Tile_Moving* obj) {delete obj; });
 	std::for_each(_vmissile.begin(), _vmissile.end(), [=](Missile* obj) {delete obj; });
 	std::for_each(_vTileKB.begin(), _vTileKB.end(), [=](Tile_KnockBack* obj) {delete obj; });
+	
 
 
 	//º¤ÅÍ ºñ¿ì±â
@@ -343,5 +348,6 @@ void ObjectManager::Clear()
 	_vTileMove.clear();
 	_vmissile.clear();
 	_vTileKB.clear();
+
 
 }

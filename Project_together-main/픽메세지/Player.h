@@ -83,8 +83,8 @@ public:
 
 	// 사다리 추가 부분
 	CImage			player1_img_Climb;
-	BOOL     intersect_sadari1;
-
+	BOOL            intersect_sadari1;
+	BOOL            intersect_sadari11;
 	// Player2
 	////////////////////////////////////////////////////////////////////
 
@@ -122,6 +122,7 @@ public:
 	// 사다리 추가 부분
 	CImage			player2_img_Climb;
 	BOOL            intersect_sadari2;
+	BOOL            intersect_sadari22;
 
 	// player2 밀기
 	CImage			player2_img_push;

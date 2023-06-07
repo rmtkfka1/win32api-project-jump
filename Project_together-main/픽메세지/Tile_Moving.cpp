@@ -6,6 +6,7 @@
 #include "Object.h"
 #include "Tile_P1.h"
 #include "Tile_P2.h"
+#include "TimeManager.h"
 
 
 Tile_Moving::Tile_Moving() :Object(ObjectType::TILE)
@@ -26,14 +27,15 @@ void Tile_Moving::Init()
     tile_img.Load(L"¸®¼Ò½º\\moving_tile.png");
 
     size.x = 40;
-    size.y = 30;
+    size.y = 40;
 
     _move_range = Pos(200, 200);
-    _stat.speed = 1;
+    _stat.speed = 5;
     //_first_move_renge = _move_range;
     _isMovingUp = false; 
     _isMovingLeft = true;
     _DoyouWant_UP = true;
+    counting = 0;
 }
 
 void Tile_Moving::Update()
@@ -43,24 +45,23 @@ void Tile_Moving::Update()
     if (_DoyouWant_UP)
     {
         {
-
-            static int counting = 0;
             if (_isMovingUp)
             {
                 counting++;
-                _pos.y -= 2;
+                _pos.y -= _stat.speed;
 
-                if (counting == _move_range.y / 2)
+                if (counting == _move_range.y)
                 {
                     counting = 0;
                     _isMovingUp = false;
                 }
             }
+
             else
             {
                 counting++;
-                _pos.y += 2;
-                if (counting == _move_range.y / 2)
+                _pos.y += _stat.speed;
+                if (counting == _move_range.y)
                 {
                     counting = 0;
                     _isMovingUp = true;
@@ -73,11 +74,10 @@ void Tile_Moving::Update()
     else
     {
         {
-            static int counting = 0;
             if (_isMovingLeft)
             {
                 counting++;
-                _pos.x -= 1;
+                _pos.x -= _stat.speed;
 
                 if (counting == _move_range.x)
                 {
@@ -88,7 +88,7 @@ void Tile_Moving::Update()
             else
             {
                 counting++;
-                _pos.x += 1;
+                _pos.x += _stat.speed;
                 if (counting == _move_range.x)
                 {
                     counting = 0;

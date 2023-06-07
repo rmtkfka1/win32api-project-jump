@@ -29,4 +29,5 @@ public:
 	BOOL        _isMovingUp;
 	BOOL        _isMovingLeft;
 
+	int       counting;
 };

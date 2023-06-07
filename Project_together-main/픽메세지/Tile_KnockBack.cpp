@@ -19,8 +19,8 @@ void Tile_KnockBack::Init()
 {
     tile_img.Load(L"¸®¼Ò½º\\plant.png");
 
-    size.x = tile_img.GetWidth();
-    size.y = tile_img.GetHeight();
+    size.x = 50;
+    size.y = 50;
 }
 
 void Tile_KnockBack::Update()

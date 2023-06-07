@@ -22,7 +22,9 @@ public:
 protected:
 	ObjectType _type = ObjectType::NONE;
 	Pos _pos = {};
-	Stat _stat = {};
 	Pos size;
+
+public:
+	Stat _stat = {};
 };
 

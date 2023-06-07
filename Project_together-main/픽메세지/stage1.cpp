@@ -13,6 +13,7 @@
 #include "Tile_KnockBack.h"
 #include "Tile_Push.h"
 #include "Tile_Climb.h"
+
 Stage1::~Stage1()
 {
 
@@ -69,7 +70,6 @@ void Stage1::Init()
 		MakeTile(2600 + (i + 1) * 100, 70-(i*100));
 	}
 
-
 	//끝에티어나온거
 	{
 		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
@@ -109,15 +109,57 @@ void Stage1::Init()
 
 	{
 		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
-		tile->SetPos(Pos(2200, 0));
+		tile->SetPos(Pos(2100, 0));
 		tile->Init();
-		tile->SetSize(Pos(100, 50));
+		tile->SetSize(Pos(200, 50));
+		GET_SINGLE(ObjectManager)->Add(tile);
+	}
+	
+	//vv
+	{
+
+		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
+		tile->SetPos(Pos(1150, 0));
+		tile->Init();
+		tile->SetSize(Pos(150, 50));
+		GET_SINGLE(ObjectManager)->Add(tile);
+
+	}
+
+
+	//v
+	{
+		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
+		tile->SetPos(Pos(1650, 0));
+		tile->Init();
+		tile->SetSize(Pos(150, 50));
 		GET_SINGLE(ObjectManager)->Add(tile);
 	}
 
-	for (int i = 0; i < 6; ++i)
+
+	//사다리꼭다리
+	MakeTile(850, -520);
+
 	{
-		MakeTile(1400 + (i + 1) * 100, -520);
+		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
+		tile->SetPos(Pos(1900, -900));
+		tile->Init();
+		tile->SetSize(Pos(150, 50));
+		GET_SINGLE(ObjectManager)->Add(tile);
+	}
+
+
+
+
+
+	//끝에사다리 타일
+	{
+		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
+		tile->SetPos(Pos(700, 0));
+		tile->Init();
+		tile->SetSize(Pos(300, 50));
+		GET_SINGLE(ObjectManager)->Add(tile);
+
 	}
 
 
@@ -136,12 +178,20 @@ void Stage1::Init()
 
 		MakeTile_P1(2750, -320);
 
+		MakeTile_P1(1950, 0);
 
 
 	}
 	//============================ Tile_P2 만들기 ==============================//
 	{
 		
+
+
+
+
+
+
+
 
 	
 	}
@@ -151,24 +201,70 @@ void Stage1::Init()
 	{
 		Tile_Moving* moving_tile = GET_SINGLE(ObjectManager)->CreateObject<Tile_Moving>();
 		moving_tile->Init();
-		moving_tile->_move_range = Pos(250, 250);
-		moving_tile->SetPos(Pos(3200, 170));
+		moving_tile->_move_range = Pos(0, 150);
+		moving_tile->_DoyouWant_UP = true;
+		moving_tile->_isMovingUp = false;
+		moving_tile->_stat.speed = 2;
+		moving_tile->SetPos(Pos(3100, 120));
 		GET_SINGLE(ObjectManager)->Add(moving_tile);
 	}
 
 	{
 		Tile_Moving* moving_tile2 = GET_SINGLE(ObjectManager)->CreateObject<Tile_Moving>();
 		moving_tile2->Init();
-		moving_tile2->_move_range = Pos(250,250);
+		moving_tile2->_move_range = Pos(300,0);
+		moving_tile2->_stat.speed = 1;
 		moving_tile2->_DoyouWant_UP = false;
 		moving_tile2->SetSize(Pos(50, 40));
 		moving_tile2->SetPos(Pos(3000, 170));
 		GET_SINGLE(ObjectManager)->Add(moving_tile2);
 	}
 
+	{
+		Tile_Moving* moving_tile3 = GET_SINGLE(ObjectManager)->CreateObject<Tile_Moving>();
+		moving_tile3->Init();
+		moving_tile3->_move_range = Pos(0, 150);
+		moving_tile3->_DoyouWant_UP = true;
+		moving_tile3->_isMovingUp = true;
+		moving_tile3->SetSize(Pos(100, 40));
+		moving_tile3->SetPos(Pos(900, -400));
+		GET_SINGLE(ObjectManager)->Add(moving_tile3);
+	}
+
+	{
+		Tile_Moving* moving_tile3 = GET_SINGLE(ObjectManager)->CreateObject<Tile_Moving>();
+		moving_tile3->Init();
+		moving_tile3->_move_range = Pos(0, 50);
+		moving_tile3->_stat.speed = 10;
+		moving_tile3->_DoyouWant_UP = true;
+		moving_tile3->_isMovingUp = true;
+		moving_tile3->SetSize(Pos(100, 40));
+		moving_tile3->SetPos(Pos(1250, -300));
+		GET_SINGLE(ObjectManager)->Add(moving_tile3);
+	}
+	
+	{
+		Tile_Moving* moving_tile3 = GET_SINGLE(ObjectManager)->CreateObject<Tile_Moving>();
+		moving_tile3->Init();
+		moving_tile3->_move_range = Pos(0, 150);
+		moving_tile3->_stat.speed = 5;
+		moving_tile3->_DoyouWant_UP = true;
+		moving_tile3->_isMovingUp = true;
+		moving_tile3->SetSize(Pos(100, 40));
+		moving_tile3->SetPos(Pos(1600, -400));
+		GET_SINGLE(ObjectManager)->Add(moving_tile3);
+	}
+
+	
+
+
+
+
 	//============================ 넉백 타일 만들기 ==============================//
 	{
 		MakeTile_KnocBack(1600, 450);
+		MakeTile_KnocBack(2200, -20);
+
 	}
 
 	//===============================Tile_Push(밀수있는 타일)만들기======================================//
@@ -179,10 +275,23 @@ void Stage1::Init()
 	MakeTile_PUSH(1000, 360);
 	MakeTile_PUSH(1000, 320);
 	MakeTile_PUSH(1000, 280);
+	////////////////////////
+
+
+	MakeTile_PUSH(1600, -160);
+	MakeTile_PUSH(1620, -120);
+	MakeTile_PUSH(1640, -80);
+	MakeTile_PUSH(1660, -40);
+
+
+
 
 	//=====================================Tile_Climb(밧줄만들기) =====================================//
 
-	MakeTile_Climb(800, -200);
+	MakeTile_Climb(850, -520);
+
+										       
+  
 	
 
 }
@@ -251,6 +360,8 @@ void Stage1::Update()
 	{
 		tile_climb[i]->Update();
 	}
+
+	
 
 };
 
@@ -321,5 +432,7 @@ void Stage1::Render(HDC mdc)
 	{
 		tile_climb[i]->Render(mdc);
 	}
+
+	
 
 };
