@@ -18,7 +18,7 @@ Missile::~Missile()
 
 void Missile::Init()
 {
-	size.x = 20;
+	size.x = 30;
 	size.y = 20;
 	_stat.hp = 1;
 	_stat.maxhp = 1;
@@ -125,8 +125,42 @@ void Missile::Render(HDC mdc)
 
 	DeleteObject(hBitmap2);
 	DeleteDC(mdc2);
-	// 화면 분할 총알 부분 해결 못함
-
 
 }
 
+void Missile::BoundingBox(HDC mdc) {
+	const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
+
+	Player* p = player[0];
+
+	HBRUSH hBrush, oldBrush;
+
+	hBrush = CreateSolidBrush(RGB(255, 0, 0)); // GDI: 브러시 만들기
+	oldBrush = (HBRUSH)SelectObject(mdc, hBrush); // 새로운 브러시 선택하기
+
+	RECT Box{ _pos.x, _pos.y, _pos.x + size.x, _pos.y + size.y };
+	RECT RenderBox{ _Renderpos.x, _Renderpos.y, _Renderpos.x + size.x, _Renderpos.y + size.y };
+
+
+	if (p->_turn == ObjectType::PLAYER1) {
+		RenderBox.left = Box.left - p->_DiffP1.x;
+		RenderBox.top = Box.top - p->_DiffP1.y;
+		RenderBox.right = Box.right - p->_DiffP1.x;
+		RenderBox.bottom = Box.bottom - p->_DiffP1.y;
+	}
+	else if (p->_turn == ObjectType::PLAYER2) {
+		RenderBox.left = Box.left - p->_DiffP2.x;
+		RenderBox.top = Box.top - p->_DiffP2.y;
+		RenderBox.right = Box.right - p->_DiffP2.x;
+		RenderBox.bottom = Box.bottom - p->_DiffP2.y;
+	}
+
+
+
+
+	FrameRect(mdc, &RenderBox, hBrush);
+
+
+	SelectObject(mdc, oldBrush); // 이전의 브러시로 돌아가기
+	DeleteObject(hBrush);
+}

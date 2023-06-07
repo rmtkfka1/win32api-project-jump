@@ -24,6 +24,6 @@ private:
 
 	Pos			_Renderpos{};		// ·»´õ¸µ ÁÂÇ¥
 
-	WCHAR test[100];
+
 };
 

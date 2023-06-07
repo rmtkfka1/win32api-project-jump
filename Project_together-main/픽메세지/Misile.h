@@ -13,6 +13,7 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC mdc) override;
+	virtual void BoundingBox(HDC mdc) override;
 
 	void SetMotion(Bullet_Dir motion) { _motion = motion; }
 	Bullet_Dir GetMotion() { return _motion; }

@@ -22,10 +22,10 @@ Tile::~Tile()
 
 void Tile::Init()
 {
-    tile_img.Load(L"리소스\\타일2.png");
+    tile_img.Load(L"리소스\\타일v.png");
 
-    size.x = 25;
-    size.y = 35;
+    size.x = 30;
+    size.y = 30;
 
 }
 
@@ -79,9 +79,12 @@ void Tile::Update()
             }
 
             p->landing1 = true;
+            p->fallP1 = false;
         }
 
       
+
+  
         //===============================================================================================/
         if (IntersectRect(&intersect_rect, &p2_rect, &tile_rect))
         {
@@ -119,6 +122,7 @@ void Tile::Update()
             }
 
             p->landing2 = true;
+            p->fallP2 = false;
         }
 
 
@@ -157,4 +161,42 @@ void Tile::Render(HDC mdc)
     DeleteDC(mdc2);
     DeleteObject(hBitmap2);
 
+
+}
+
+void Tile::BoundingBox(HDC mdc) {
+    const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
+
+    Player* p = player[0];
+
+    HBRUSH hBrush, oldBrush;
+
+    hBrush = CreateSolidBrush(RGB(255, 0, 0)); // GDI: 브러시 만들기
+    oldBrush = (HBRUSH)SelectObject(mdc, hBrush); // 새로운 브러시 선택하기
+
+    RECT Box{ _pos.x, _pos.y, _pos.x + size.x, _pos.y + size.y };
+    RECT RenderBox{ _Renderpos.x, _Renderpos.y, _Renderpos.x + size.x, _Renderpos.y + size.y };
+
+
+    if (p->_turn == ObjectType::PLAYER1) {
+        RenderBox.left = Box.left - p->_DiffP1.x;
+        RenderBox.top = Box.top - p->_DiffP1.y;
+        RenderBox.right = Box.right - p->_DiffP1.x;
+        RenderBox.bottom = Box.bottom - p->_DiffP1.y;
+    }
+    else if (p->_turn == ObjectType::PLAYER2) {
+        RenderBox.left = Box.left - p->_DiffP2.x;
+        RenderBox.top = Box.top - p->_DiffP2.y;
+        RenderBox.right = Box.right - p->_DiffP2.x;
+        RenderBox.bottom = Box.bottom - p->_DiffP2.y;
+    }
+
+
+
+
+    FrameRect(mdc, &RenderBox, hBrush);
+
+
+    SelectObject(mdc, oldBrush); // 이전의 브러시로 돌아가기
+    DeleteObject(hBrush);
 }

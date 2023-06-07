@@ -1,35 +1,38 @@
 #include "pch.h"
+#include "Tile_bottom.h"
 #include "Tile.h"
 #include "ObjectManager.h"
 #include "Player.h"
 #include "Object.h"
-#include "Tile_Climb.h"
+#include "Tile_P1.h"
+#include "Tile_P2.h"
 
-Tile_Climb::Tile_Climb() :Object(ObjectType::TILE)
+
+Tile_bottom::Tile_bottom() :Object(ObjectType::TILE)
 {
-    
+
 
 }
 
 
-Tile_Climb::~Tile_Climb()
+Tile_bottom::~Tile_bottom()
 {
     tile_img.Destroy();
 
 }
 
-void Tile_Climb::Init()
+void Tile_bottom::Init()
 {
-    tile_img.Load(L"리소스\\밧줄.png");
+    tile_img.Load(L"리소스\\타일2.png");
 
-    size.x = 20;
-    size.y = 700;
+    size.x = 25;
+    size.y = 35;
 
 }
 
-void Tile_Climb::Update()
+void Tile_bottom::Update()
 {
-    
+    {
         const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
 
         Player* p = player[0];
@@ -45,34 +48,92 @@ void Tile_Climb::Update()
 
         if (IntersectRect(&intersect_rect, &p_rect, &tile_rect))
         {
+            float GapW = intersect_rect.right - intersect_rect.left;
+            float GAPH = intersect_rect.bottom - intersect_rect.top;
+
+            if (GapW > GAPH)
+            {
+
+                if (intersect_rect.top == tile_rect.top)
+                {
+                    p->_posP1.y -= GAPH;
+                }
+
+                else if (intersect_rect.bottom == tile_rect.bottom)
+                {
+                    p->_posP1.y += GAPH;
+                }
+            }
+
+            else
+            {
+                if (intersect_rect.left == tile_rect.left)
+                {
+                    p->_posP1.x = p->_posP1.x - GapW;
+                }
+
+                else if (intersect_rect.right == tile_rect.right)
+                {
+                    p->_posP1.x = p->_posP1.x + GapW;
+
+                }
+            }
+
             p->landing1 = true;
-            p->intersect_sadari1 = true;
-       
+            p->fallP1 = false;
         }
 
-        else
-        {
-            p->Gravity1 = true;
-            p->intersect_sadari1 = false;
-        }
 
 
 
         //===============================================================================================/
         if (IntersectRect(&intersect_rect, &p2_rect, &tile_rect))
         {
+
+
+            float GapW = intersect_rect.right - intersect_rect.left;
+            float GAPH = intersect_rect.bottom - intersect_rect.top;
+
+            if (GapW > GAPH)
+            {
+
+                if (intersect_rect.top == tile_rect.top)
+                {
+                    p->_posP2.y -= GAPH;
+                }
+
+                else if (intersect_rect.bottom == tile_rect.bottom)
+                {
+                    p->_posP2.y += GAPH;
+                }
+            }
+
+            else
+            {
+                if (intersect_rect.left == tile_rect.left)
+                {
+                    p->_posP2.x = p->_posP2.x - GapW;
+                }
+
+                else if (intersect_rect.right == tile_rect.right)
+                {
+                    p->_posP2.x = p->_posP2.x + GapW;
+
+                }
+            }
+
             p->landing2 = true;
-            p->intersect_sadari2 = true;
+            p->fallP2 = false;
         }
-        else
-        {
-            p->Gravity2 = true;
-            p->intersect_sadari2 = false;
-        }
+
+
+    }
+
 }
 
-void Tile_Climb::Render(HDC mdc)
+void Tile_bottom::Render(HDC mdc)
 {
+
 
     const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
 
@@ -104,7 +165,7 @@ void Tile_Climb::Render(HDC mdc)
 
 }
 
-void Tile_Climb::BoundingBox(HDC mdc) {
+void Tile_bottom::BoundingBox(HDC mdc) {
     const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
 
     Player* p = player[0];

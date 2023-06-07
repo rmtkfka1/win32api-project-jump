@@ -1,36 +1,33 @@
 #include "pch.h"
-#include "Tile_Moving.h"
-#include "Tile.h"
+#include "Monster.h"
 #include "ObjectManager.h"
 #include "Player.h"
 #include "Object.h"
-#include "Tile_P1.h"
-#include "Tile_P2.h"
 #include "TimeManager.h"
 
 
-Tile_Moving::Tile_Moving() :Object(ObjectType::TILE)
+Monster::Monster() :Object(ObjectType::MONSTER)
 {
 
 
 }
 
 
-Tile_Moving::~Tile_Moving()
+Monster::~Monster()
 {
-
     tile_img.Destroy();
+
 }
 
-void Tile_Moving::Init()
+void Monster::Init()
 {
-    tile_img.Load(L"리소스\\moving_tile.png");
+    tile_img.Load(L"리소스\\Bullet.png");
 
-    size.x = 40;
-    size.y = 40;
+    size.x = 25;
+    size.y = 35;
 
     _move_range = Pos(200, 200);
-    _stat.speed = 5;
+    _stat.speed = 1;
     //_first_move_renge = _move_range;
     _isMovingUp = false;
     _isMovingLeft = true;
@@ -38,10 +35,8 @@ void Tile_Moving::Init()
     counting = 0;
 }
 
-void Tile_Moving::Update()
+void Monster::Update()
 {
-
-
     if (_DoyouWant_UP)
     {
         {
@@ -98,8 +93,6 @@ void Tile_Moving::Update()
         }
     }
 
-
-
     const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
 
     Player* p = player[0];
@@ -113,87 +106,49 @@ void Tile_Moving::Update()
 
     if (IntersectRect(&intersect_rect, &p1_rect, &tile_rect))
     {
+        p->_KnocBackP1 = true;
+        if (p->_motionP1 == Motion::UP) {
+            p->_motionP1 = Motion::RIGHT;
+            p->_KnockPosP1.x = p->_posP1.x - 200.f;
 
-        float GapW = intersect_rect.right - intersect_rect.left;
-        float GAPH = intersect_rect.bottom - intersect_rect.top;
-
-        if (GapW > GAPH)
-        {
-
-            if (intersect_rect.top == tile_rect.top)
-            {
-                p->_posP1.y -= GAPH;
-            }
-
-            else if (intersect_rect.bottom == tile_rect.bottom)
-            {
-                p->_posP1.y += GAPH;
-            }
+            p->_posP1.x -= 40.f;
+            p->_posP1.y += 10.f;
         }
 
-        else
-        {
-            if (intersect_rect.left == tile_rect.left)
-            {
-                p->_posP1.x = p->_posP1.x - GapW;
-            }
+        else if (p->_motionP1 == Motion::DOWN) {
+            p->_motionP1 = Motion::LEFT;
+            p->_KnockPosP1.x = p->_posP1.x + 200.f;
 
-            else if (intersect_rect.right == tile_rect.right)
-            {
-                p->_posP1.x = p->_posP1.x + GapW;
-
-            }
+            p->_posP1.x += 40.f;
+            p->_posP1.y += 10.f;
         }
-
-        p->landing1 = true;
-        p->fallP1 = false;
+        
     }
-
 
     if (IntersectRect(&intersect_rect, &p2_rect, &tile_rect))
     {
+        p->_KnocBackP2 = true;
+        if (p->_motionP2 == Motion::UP) {
+            p->_motionP2 = Motion::RIGHT;
+            p->_KnockPosP2.x = p->_posP2.x - 150.f;
 
-
-        float GapW = intersect_rect.right - intersect_rect.left;
-        float GAPH = intersect_rect.bottom - intersect_rect.top;
-
-        if (GapW > GAPH)
-        {
-
-            if (intersect_rect.top == tile_rect.top)
-            {
-                p->_posP2.y -= GAPH;
-            }
-
-            else if (intersect_rect.bottom == tile_rect.bottom)
-            {
-                p->_posP2.y += GAPH;
-            }
+            p->_posP2.x -= 40.f;
+            p->_posP2.y += 10.f;
         }
 
-        else
-        {
-            if (intersect_rect.left == tile_rect.left)
-            {
-                p->_posP2.x = p->_posP2.x - GapW;
-            }
+        else if (p->_motionP2 == Motion::DOWN) {
+            p->_motionP2 = Motion::LEFT;
+            p->_KnockPosP2.x = p->_posP2.x + 150.f;
 
-            else if (intersect_rect.right == tile_rect.right)
-            {
-                p->_posP2.x = p->_posP2.x + GapW;
-
-            }
+            p->_posP2.x += 40.f;
+            p->_posP2.y += 10.f;
         }
 
-        p->landing2 = true;
-        p->fallP2 = false;
+
     }
-
-
 }
 
-
-void Tile_Moving::Render(HDC mdc)
+void Monster::Render(HDC mdc)
 {
 
 
@@ -214,6 +169,7 @@ void Tile_Moving::Render(HDC mdc)
     mdc2 = CreateCompatibleDC(mdc);
     SelectObject(mdc2, (HBRUSH)hBitmap2);
 
+
     tile_img.Draw(mdc2, 0, 0, tile_img.GetWidth(), tile_img.GetHeight()
         , 0, 0, tile_img.GetWidth(), tile_img.GetHeight());
 
@@ -223,9 +179,10 @@ void Tile_Moving::Render(HDC mdc)
     DeleteDC(mdc2);
     DeleteObject(hBitmap2);
 
+
 }
 
-void Tile_Moving::BoundingBox(HDC mdc) {
+void Monster::BoundingBox(HDC mdc) {
     const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
 
     Player* p = player[0];

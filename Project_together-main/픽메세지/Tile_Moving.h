@@ -2,16 +2,17 @@
 
 #include "Object.h"
 
-class Tile_Moving : public Object
+class Tile_Moving : public Object	
 {
 
 public:
-
+	
 	Tile_Moving();
 	virtual ~Tile_Moving() override;
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC mdc) override;
+	virtual void BoundingBox(HDC mdc) override;
 
 
 private:

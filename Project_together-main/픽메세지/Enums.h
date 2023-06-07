@@ -29,6 +29,8 @@ enum class KeyType
 	P='3',
 	Q='Q',
 
+	on ='O'
+
 };
 
 enum class KeyState
@@ -54,6 +56,7 @@ enum class SceneType
 	STAGE2,
 	STAGE3,
 	EDITSCENE,
+	ENDING,
 	END,
 };
 

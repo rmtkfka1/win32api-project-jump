@@ -134,6 +134,7 @@
     <ClCompile Include="GAME.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Misile.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="pch.cpp">
@@ -144,6 +145,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="stage1.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Tile_bottom.cpp" />
     <ClCompile Include="Tile_Climb.cpp" />
     <ClCompile Include="Tile_KnockBack.cpp" />
     <ClCompile Include="Tile_Moving.cpp" />
@@ -160,6 +162,7 @@
     <ClInclude Include="GAME.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="Misile.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="pch.h" />
@@ -168,6 +171,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Stage1.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="Tile_bottom.h" />
     <ClInclude Include="Tile_Climb.h" />
     <ClInclude Include="Tile_KnockBack.h" />
     <ClInclude Include="Tile_Moving.h" />

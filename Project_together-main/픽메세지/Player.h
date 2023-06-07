@@ -15,6 +15,7 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC mdc) override;
+	virtual void BoundingBox(HDC mdc) override;
 
 
 	void Init(BackGround*);
@@ -69,6 +70,7 @@ public:
 	float			JumpHeight1 = 0;
 	float			jumpPower1 = 45.f;
 	float			temp1 = 0;
+	bool			fallP1{ false };
 
 	
     BOOL            landing1;
@@ -83,8 +85,8 @@ public:
 
 	// 사다리 추가 부분
 	CImage			player1_img_Climb;
-	BOOL            intersect_sadari1;
-	BOOL            intersect_sadari11;
+	BOOL			intersect_sadari1;
+
 	// Player2
 	////////////////////////////////////////////////////////////////////
 
@@ -115,6 +117,7 @@ public:
 	float			JumpHeight2 = 0;
 	float			jumpPower2 = 45.f;
 	float			temp2 = 0;
+	bool			fallP2{ false };
 
 	BOOL			Gravity2;
 	BOOL			g_bJumpkeyPressed2 = FALSE;	//	점프 키 Space bar가 눌리면 TRUE로 변경
@@ -122,7 +125,6 @@ public:
 	// 사다리 추가 부분
 	CImage			player2_img_Climb;
 	BOOL            intersect_sadari2;
-	BOOL            intersect_sadari22;
 
 	// player2 밀기
 	CImage			player2_img_push;
@@ -138,6 +140,7 @@ public:
 	bool			_divide{ false };
 	ObjectType		_turn{ ObjectType::PLAYER1 };
 	BackGround* _background{ nullptr };
+	bool			boundingOnOff{ false };
 
 
 	// 카메라 추가 부분

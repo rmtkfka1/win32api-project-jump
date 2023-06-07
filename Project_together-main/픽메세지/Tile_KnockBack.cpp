@@ -19,8 +19,8 @@ void Tile_KnockBack::Init()
 {
     tile_img.Load(L"리소스\\plant.png");
 
-    size.x = 50;
-    size.y = 50;
+    size.x = tile_img.GetWidth();
+    size.y = tile_img.GetHeight();
 }
 
 void Tile_KnockBack::Update()
@@ -79,9 +79,47 @@ void Tile_KnockBack::Render(HDC mdc)
     else if (p->_turn == ObjectType::PLAYER2)        // 초점이 2
         _Renderpos = _pos - diff2;                // << player2일 때
 
-    TransparentBlt(mdc, _Renderpos.x, _Renderpos.y, size.x * 0.5, size.y * 0.5,
+    TransparentBlt(mdc, _Renderpos.x, _Renderpos.y, size.x, size.y,
         mdc2, 0, 0, tile_img.GetWidth(), tile_img.GetHeight(), RGB(0, 0, 0));
 
     DeleteObject(hBitmap2);
     DeleteDC(mdc2);
+
+}
+
+void Tile_KnockBack::BoundingBox(HDC mdc) {
+    const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
+
+    Player* p = player[0];
+
+    HBRUSH hBrush, oldBrush;
+
+    hBrush = CreateSolidBrush(RGB(255, 0, 0)); // GDI: 브러시 만들기
+    oldBrush = (HBRUSH)SelectObject(mdc, hBrush); // 새로운 브러시 선택하기
+
+    RECT Box{ _pos.x, _pos.y, _pos.x + size.x, _pos.y + size.y };
+    RECT RenderBox{ _Renderpos.x, _Renderpos.y, _Renderpos.x + size.x, _Renderpos.y + size.y };
+
+
+    if (p->_turn == ObjectType::PLAYER1) {
+        RenderBox.left = Box.left - p->_DiffP1.x;
+        RenderBox.top = Box.top - p->_DiffP1.y;
+        RenderBox.right = Box.right - p->_DiffP1.x;
+        RenderBox.bottom = Box.bottom - p->_DiffP1.y;
+    }
+    else if (p->_turn == ObjectType::PLAYER2) {
+        RenderBox.left = Box.left - p->_DiffP2.x;
+        RenderBox.top = Box.top - p->_DiffP2.y;
+        RenderBox.right = Box.right - p->_DiffP2.x;
+        RenderBox.bottom = Box.bottom - p->_DiffP2.y;
+    }
+
+
+
+
+    FrameRect(mdc, &RenderBox, hBrush);
+
+
+    SelectObject(mdc, oldBrush); // 이전의 브러시로 돌아가기
+    DeleteObject(hBrush);
 }

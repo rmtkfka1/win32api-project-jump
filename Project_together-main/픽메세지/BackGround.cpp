@@ -5,7 +5,7 @@
 #include "KeyManager.h"
 #include "Player.h"
 
-
+void::BackGround::BoundingBox(HDC){}
 
 BackGround::BackGround() :Object(ObjectType::PLAYER1)
 {

@@ -12,10 +12,9 @@ class Tile_Moving;
 class Tile_KnockBack;
 class Tile_Push;
 class Tile_Climb;
-
-//class Player2;
-//class Missile;
-//class Foothold;
+class Monster;
+class Tile_bottom;
+class Tile_ending;
 
 class ObjectManager
 {
@@ -34,7 +33,9 @@ public:
 	void Add(Tile_KnockBack* object);
 	void Add(Tile_Push* object);
 	void Add(Tile_Climb* object);
-
+	void Add(Monster* object);
+	void Add(Tile_bottom* object);
+	void Add(Tile_ending* object);
 
 	void Remove(Player* object);
 	void Remove(BackGround* object);
@@ -46,8 +47,9 @@ public:
 	void Remove(Tile_KnockBack* object);
 	void Remove(Tile_Push* object);
 	void Remove(Tile_Climb* object);
-
-
+	void Remove(Monster* object);
+	void Remove(Tile_bottom* object);
+	void Remove(Tile_ending* object);
 
 	void Clear(); //씬전환되면 동적할당된 메모리싹날라기
 
@@ -61,8 +63,9 @@ public:
 	const vector<Missile*>& GetMissile() { return _vmissile; } //외부 CPP,헤더파일에서 벡터가져오기//
 	const vector<Tile_Push*>& GetTilePush() { return _vTilePush; } //외부 CPP,헤더파일에서 벡터가져오기//
 	const vector<Tile_Climb*>& GetTileClimb() { return _vTileClimb; } //외부 CPP,헤더파일에서 벡터가져오기//
-
-
+	const vector<Monster*>& GetMonster() { return _monster; } //외부 CPP,헤더파일에서 벡터가져오기//
+	const vector<Tile_bottom*>& GetTilebottom() { return _vTilebottom; } //외부 CPP,헤더파일에서 벡터가져오기//
+	const vector<Tile_ending*>& GetTileending() { return _vTileending; } //외부 CPP,헤더파일에서 벡터가져오기//
 
 
 	template<typename T>
@@ -86,7 +89,8 @@ private:
 	vector<Tile_KnockBack*> _vTileKB;
 	vector<Tile_Push*> _vTilePush;
 	vector<Tile_Climb*> _vTileClimb;
-
-
+	vector<Monster*> _monster;
+	vector<Tile_bottom*> _vTilebottom;
+	vector<Tile_ending*> _vTileending;
 };
 

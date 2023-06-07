@@ -10,6 +10,7 @@ public:
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 	virtual void Render(HDC hdc) = 0;
+	virtual void BoundingBox(HDC hdc) = 0;
 
 	ObjectType GetObjectType() { return _type; }
 	Pos GetPos() { return _pos; }
@@ -19,12 +20,10 @@ public:
 	Pos GetSize() { return size; }
 	void SetSize(Pos size_) { size = size_; }
 
-protected:
+public:
 	ObjectType _type = ObjectType::NONE;
 	Pos _pos = {};
-	Pos size;
-
-public:
 	Stat _stat = {};
+	Pos size;
 };
 

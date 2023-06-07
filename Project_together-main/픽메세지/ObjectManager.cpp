@@ -46,6 +46,37 @@ void ObjectManager::Add(Tile_Push* object)
 
 }
 
+void ObjectManager::Add(Tile_bottom* object)
+{
+
+
+	if (object == nullptr) return;
+	//객체 중복검사
+	auto findit = std::find(_vTilebottom.begin(), _vTilebottom.end(), object);
+
+	if (findit != _vTilebottom.end())
+		return;
+	//////////////////////////////////////
+
+	_vTilebottom.push_back(object);
+}
+
+void ObjectManager::Add(Tile_ending* object)
+{
+
+	if (object == nullptr) return;
+
+	//객체 중복검사
+	auto findit = std::find(_vTileending.begin(), _vTileending.end(), object);
+
+	if (findit != _vTileending.end())
+		return;
+	//////////////////////////////////////
+
+	_vTileending.push_back(object);
+}
+
+
 void ObjectManager::Add(Tile_Climb* object)
 {
 
@@ -62,7 +93,19 @@ void ObjectManager::Add(Tile_Climb* object)
 
 }
 
+void ObjectManager::Add(Monster* object)
+{
+	if (object == nullptr) return;
 
+	//객체 중복검사
+	auto findit = std::find(_monster.begin(), _monster.end(), object);
+
+	if (findit != _monster.end())
+		return;
+	//////////////////////////////////////
+
+	_monster.push_back(object);
+}
 
 void ObjectManager::Add(Player* object)
 {
@@ -169,6 +212,45 @@ void ObjectManager::Add(Tile_Moving* object)
 
 }
 
+//======================================================================================//
+
+
+void ObjectManager::Remove(Tile_bottom* object)
+{
+	if (object == nullptr)
+		return;
+
+	//벡터내에서 삭제//////////////////////////////
+	auto it = std::remove(_vTilebottom.begin(), _vTilebottom.end(), object);
+
+	_vTilebottom.erase(it, _vTilebottom.end());
+	//////////////////////////////////////////
+	//메모리 삭제
+	delete object;
+
+
+}
+
+void ObjectManager::Remove(Tile_ending* object)
+{
+
+	if (object == nullptr)
+		return;
+
+	//벡터내에서 삭제//////////////////////////////
+	auto it = std::remove(_vTileending.begin(), _vTileending.end(), object);
+
+	_vTileending.erase(it, _vTileending.end());
+	//////////////////////////////////////////
+	//메모리 삭제
+	delete object;
+
+
+
+}
+
+
+
 void ObjectManager::Remove(Tile_KnockBack* object)
 {
 	if (object == nullptr)
@@ -215,7 +297,19 @@ void ObjectManager::Remove(Tile_Climb* object)
 
 }
 
+void ObjectManager::Remove(Monster* object)
+{
+	if (object == nullptr)
+		return;
 
+	//벡터내에서 삭제//////////////////////////////
+	auto it = std::remove(_monster.begin(), _monster.end(), object);
+
+	_monster.erase(it, _monster.end());
+	//////////////////////////////////////////
+	//메모리 삭제
+	delete object;
+}
 
 void ObjectManager::Remove(Player* object)
 {
@@ -336,8 +430,8 @@ void ObjectManager::Clear()
 	std::for_each(_vTileMove.begin(), _vTileMove.end(), [=](Tile_Moving* obj) {delete obj; });
 	std::for_each(_vmissile.begin(), _vmissile.end(), [=](Missile* obj) {delete obj; });
 	std::for_each(_vTileKB.begin(), _vTileKB.end(), [=](Tile_KnockBack* obj) {delete obj; });
-	
-
+	std::for_each(_vTilebottom.begin(), _vTilebottom.end(), [=](Tile_bottom* obj) {delete obj; });
+	std::for_each(_vTileending.begin(), _vTileending.end(), [=](Tile_ending* obj) {delete obj; });
 
 	//벡터 비우기
 	_player.clear();
@@ -348,6 +442,6 @@ void ObjectManager::Clear()
 	_vTileMove.clear();
 	_vmissile.clear();
 	_vTileKB.clear();
-
-
+	_vTilebottom.clear();
+	_vTileending.clear();
 }

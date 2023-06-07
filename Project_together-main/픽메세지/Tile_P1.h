@@ -1,5 +1,7 @@
 #pragma once
 #include "Object.h"
+
+
 class Tile_P1 : public Object
 {
 
@@ -10,6 +12,7 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC mdc) override;
+	virtual void BoundingBox(HDC mdc) override;
 
 
 private:
@@ -20,6 +23,6 @@ private:
 	CImage      tile_img;
 
 	Pos			_Renderpos{};		// ·»´õ¸µ ÁÂÇ¥
-	WCHAR test[100];
+
 };
 

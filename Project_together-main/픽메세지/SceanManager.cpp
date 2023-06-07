@@ -2,6 +2,7 @@
 #include "SceanManager.h"
 #include "Stage1.h"
 
+
 void SceneManager::Init()
 {
 
@@ -56,6 +57,9 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	case SceneType::STAGE3:
 		/*newScene = new Stage3();*/
 		break;
+	/*case SceneType::ENDING:
+		newScene = new ending();
+		break;*/
 	case SceneType::END:
 
 		break;

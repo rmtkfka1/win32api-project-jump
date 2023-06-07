@@ -10,7 +10,6 @@
 #include "ObjectManager.h"
 #include "Tile_P2.h"
 #include "Tile_P1.h"
-//void Player::Render(HDC mdc) {}
 void Player::Init() {}
 
 Player::Player() :Object(ObjectType::PLAYER)
@@ -124,6 +123,8 @@ void Player::Update() {
 		GapUpdate(KeyType::O);
 	if (GET_SINGLE(KeyManager)->Getbutton(KeyType::P))
 		GapUpdate(KeyType::P);
+	if (GET_SINGLE(KeyManager)->Getbutton(KeyType::on))
+		GapUpdate(KeyType::on);
 
 	const vector<BackGround*>& bk = GET_SINGLE(ObjectManager)->GetBackGround();   //벡터를 가져오는것
 	BackGround* background = bk[0];
@@ -142,15 +143,22 @@ void Player::Update() {
 
 			_motionP1 = Motion::LEFT;
 			_posP1.x -= _stat.speed * deletaTime;
+
 			_motion_cntP1 += deletaTime * 10;
 			if (_motion_cntP1 > 5.f)
 				_motion_cntP1 = 0.f;
-			//_motion_cntP1 = (_motion_cntP1 + 1) % 6;
 
-			if (_posP1.x < WINDOW_WIDTH / 2)
+			if (_posP1.x < 0) {
+				_posP1.x = 0;
+			}
+
+			else if (_posP1.x < WINDOW_WIDTH / 2) {
 				_RenderPosP1.x -= _stat.speed * deletaTime;
+				_collisionLeftP1 -= _stat.speed * deletaTime;
+			}
 			else if (_posP1.x > background->background_img.GetWidth() * 1.8)
 				_RenderPosP1.x -= _stat.speed * deletaTime;
+
 
 		}
 
@@ -161,11 +169,13 @@ void Player::Update() {
 			_motion_cntP1 += deletaTime * 10;
 			if (_motion_cntP1 > 5.f)
 				_motion_cntP1 = 0.f;
-			//_motion_cntP1 = (_motion_cntP1 + 1) % 6;
 
 
-			if (_posP1.x < WINDOW_WIDTH / 2)
+			if (_posP1.x < WINDOW_WIDTH / 2) {
 				_RenderPosP1.x += _stat.speed * deletaTime;
+				_collisionLeftP1 += _stat.speed * deletaTime;
+
+			}
 			else if (_posP1.x > background->background_img.GetWidth() * 1.8)
 				_RenderPosP1.x += _stat.speed * deletaTime;
 		}
@@ -177,11 +187,13 @@ void Player::Update() {
 			{
 				_motionP1 = Motion::UP;
 				Gravity1 = false;
-				_posP1.y -= _stat.speed * deletaTime;
+				_posP1.y -= _stat.speed * deletaTime; 
 				_motion_cntP1 += deletaTime * 10;
 				if (_motion_cntP1 > 4.f)
 					_motion_cntP1 = 0.f;
-				//_motion_cntP1 = (_motion_cntP1 + 1) % 6;
+
+				g_bJumpkeyPressed1 = false;
+				fallP1 = false;
 			}
 		}
 
@@ -195,7 +207,6 @@ void Player::Update() {
 				_motion_cntP1 += deletaTime * 10;
 				if (_motion_cntP1 > 4.f)
 					_motion_cntP1 = 0.f;
-				//_motion_cntP1 = (_motion_cntP1 + 1) % 6;
 			}
 		}
 		
@@ -206,6 +217,7 @@ void Player::Update() {
 				g_bJumpkeyPressed1 = TRUE;
 				JumpMotionP1 = Motion::UP;
 				landing1 = false;
+				fallP1 = true;
 			}
 		}
 
@@ -250,12 +262,20 @@ void Player::Update() {
 		{
 			_motionP2 = Motion::LEFT;
 			_posP2.x -= _stat.speed * deletaTime;
+
 			_motion_cntP2 += deletaTime * 10;
 			if (_motion_cntP2 > 5.f)
 				_motion_cntP2 = 0.f;
 
-			if (_posP2.x < WINDOW_WIDTH / 2)
+
+			if (_posP2.x < 0) {
+				_posP2.x = 0;
+			}
+
+			else if (_posP2.x < WINDOW_WIDTH / 2) {
 				_RenderPosP2.x -= _stat.speed * deletaTime;
+				_collisionLeftP2 -= _stat.speed * deletaTime;
+			}
 
 		}
 
@@ -263,13 +283,20 @@ void Player::Update() {
 		{
 			_motionP2 = Motion::RIGHT;
 			_posP2.x += _stat.speed * deletaTime;
+
 			_motion_cntP2 += deletaTime * 10;
 			if (_motion_cntP2 > 5.f)
 				_motion_cntP2 = 0.f;
 
+			if (_posP2.x < 0) {
+				_posP2.x = 0;
+			}
 
-			if (_posP2.x < WINDOW_WIDTH / 2)
+			else if (_posP2.x < WINDOW_WIDTH / 2) {
 				_RenderPosP2.x += _stat.speed * deletaTime;
+				_collisionLeftP2 += _stat.speed * deletaTime;
+			}
+
 		}
 
 
@@ -284,7 +311,10 @@ void Player::Update() {
 				_motion_cntP2 += deletaTime * 10;
 				if (_motion_cntP2 > 4.f)
 					_motion_cntP2 = 0.f;
-				//_motion_cntP1 = (_motion_cntP1 + 1) % 6;
+				
+
+				g_bJumpkeyPressed2 = false;
+				fallP2 = false;
 			}
 		}
 
@@ -298,12 +328,8 @@ void Player::Update() {
 				_motion_cntP2 += deletaTime * 10;
 				if (_motion_cntP2 > 4.f)
 					_motion_cntP2 = 0.f;
-				//_motion_cntP1 = (_motion_cntP1 + 1) % 6;
 			}
 		}
-
-
-
 
 
 		if (GET_SINGLE(KeyManager)->Getbutton(KeyType::J))
@@ -314,6 +340,7 @@ void Player::Update() {
 				g_bJumpkeyPressed2 = TRUE;
 				JumpMotionP2 = Motion::UP;
 				landing2 = false;
+				fallP2 = true;
 			}
 			
 		}
@@ -349,6 +376,7 @@ void Player::Update() {
 	if (Gravity1)
 	{
 		_posP1.y += 10;
+		
 	}
 
 
@@ -387,20 +415,32 @@ void Player::Render(HDC mdc) {
 
 		}
 	}
-	else if (g_bJumpkeyPressed1)
+	else if (fallP1)
 	{
+		
+
 		if (JumpMotionP1 == Motion::UP)
 		{
+			if (_motionP1 == Motion::RIGHT)
+				_motion_cntP1 = 0;
+			else if (_motionP1 == Motion::LEFT)
+				_motion_cntP1 = 2;
+
 			player1_img_jump.Draw(mdcP1, 0, 0, size.x, size.y, _motion_cntP1 * 32, 0, 32, 32);
 		}
 
 		if (JumpMotionP1 == Motion::DOWN)
 		{
+			if (_motionP1 == Motion::RIGHT)
+				_motion_cntP1 = 1;
+			else if (_motionP1 == Motion::LEFT)
+				_motion_cntP1 = 3;
+
 			player1_img_jump.Draw(mdcP1, 0, 0, size.x, size.y, _motion_cntP1 * 32, 0, 32, 32);
 
 		}
 	}
-
+	
 	else {
 		int moveCnt = static_cast<int>(_motion_cntP1);
 		if (_motionP1 == Motion::LEFT)
@@ -444,15 +484,25 @@ void Player::Render(HDC mdc) {
 
 		}
 	}
-	else if (g_bJumpkeyPressed2)
+	else if (fallP2)
 	{
 		if (JumpMotionP2 == Motion::UP)
 		{
+			if (_motionP2 == Motion::RIGHT)
+				_motion_cntP2 = 0;
+			else if (_motionP2 == Motion::LEFT)
+				_motion_cntP2 = 2;
+
 			player2_img_jump.Draw(mdcP2, 0, 0, size.x, size.y, _motion_cntP2 * 32, 0, 32, 32);
 		}
 
 		if (JumpMotionP2 == Motion::DOWN)
 		{
+			if (_motionP2 == Motion::RIGHT)
+				_motion_cntP2 = 1;
+			else if (_motionP2 == Motion::LEFT)
+				_motion_cntP2 = 3;
+
 			player2_img_jump.Draw(mdcP2, 0, 0, size.x, size.y, _motion_cntP2 * 32, 0, 32, 32);
 
 		}
@@ -561,28 +611,62 @@ void Player::Render(HDC mdc) {
 
 
 
-	swprintf_s(test, L"p2->y :%.1f", _posP2.y);
-	TextOut(mdc, 0, 20, test, lstrlen(test));
+	///*swprintf_s(test, L"p2->y :%.1f", _posP2.y);
+	//TextOut(mdc, 0, 20, test, lstrlen(test));
 
-	swprintf_s(test, L"renderp1->x :%.1f", _RenderPosP1.x);
-	TextOut(mdc, 0, 35, test, lstrlen(test));
+	//swprintf_s(test, L"renderp1->x :%.1f", _RenderPosP1.x);
+	//TextOut(mdc, 0, 35, test, lstrlen(test));
 
-	swprintf_s(test, L"renderp2->y :%.1f", _RenderPosP2.x);
-	TextOut(mdc, 0, 50, test, lstrlen(test));
+	//swprintf_s(test, L"renderp2->y :%.1f", _RenderPosP2.x);
+	//TextOut(mdc, 0, 50, test, lstrlen(test));
 
-	swprintf_s(test, L"_motion_cntP1 :%.1f", _motion_cntP1);
-	TextOut(mdc, 0, 70, test, lstrlen(test));
+	//swprintf_s(test, L"_motion_cntP1 :%.1f", _motion_cntP1);
+	//TextOut(mdc, 0, 70, test, lstrlen(test));
 
-	swprintf_s(test, L"JumpHeight1 :%.1f", JumpHeight1);
-	TextOut(mdc, 1000, 90, test, lstrlen(test));
+	//swprintf_s(test, L"JumpHeight1 :%.1f", JumpHeight1);
+	//TextOut(mdc, 1000, 90, test, lstrlen(test));*/
 
 	DeleteObject(hBitmapP1);
 	DeleteDC(mdcP1);
 	DeleteObject(hBitmapP2);
 	DeleteDC(mdcP2);
+
 }
 
+void Player::BoundingBox(HDC mdc) {
+	HBRUSH hBrush, oldBrush;
 
+	hBrush = CreateSolidBrush(RGB(255, 0, 0)); // GDI: 브러시 만들기
+	oldBrush = (HBRUSH)SelectObject(mdc, hBrush); // 새로운 브러시 선택하기
+
+	RECT BoxP1{ _posP1.x, _posP1.y, _posP1.x + size.x, _posP1.y + size.y };
+	RECT RenderBoxP1{ _RenderPosP1.x, _RenderPosP1.y, _RenderPosP1.x + size.x, _RenderPosP1.y + size.y };
+
+	RECT BoxP2{ _posP2.x, _posP2.y, _posP2.x + size.x, _posP2.y + size.y };
+	RECT RenderBoxP2{ _RenderPosP2.x, _RenderPosP2.y, _RenderPosP2.x + size.x, _RenderPosP2.y + size.y };
+
+	if (_turn == ObjectType::PLAYER1) {
+		RenderBoxP2.left = BoxP2.left - _DiffP1.x;
+		RenderBoxP2.top = BoxP2.top - _DiffP1.y;
+		RenderBoxP2.right = BoxP2.right - _DiffP1.x;
+		RenderBoxP2.bottom = BoxP2.bottom - _DiffP1.y;
+	}
+	else if (_turn == ObjectType::PLAYER2) {
+		RenderBoxP1.left = BoxP1.left - _DiffP2.x;
+		RenderBoxP1.top = BoxP1.top - _DiffP2.y;
+		RenderBoxP1.right = BoxP1.right - _DiffP2.x;
+		RenderBoxP1.bottom = BoxP1.bottom - _DiffP2.y;
+	}
+
+
+
+
+	FrameRect(mdc, &RenderBoxP1, hBrush);
+	FrameRect(mdc, &RenderBoxP2, hBrush);
+
+	SelectObject(mdc, oldBrush); // 이전의 브러시로 돌아가기
+	DeleteObject(hBrush);
+}
 
 
 // 애니메이션 처리 함수
@@ -596,23 +680,10 @@ void Player::jump1()
 	_posP1.y += JumpHeight1 - temp1;
 	temp1 = JumpHeight1;
 
-	JumpTime1 += 1.1f;		//값을 올리면 점프속도가 빨라짐
+	JumpTime1 += 0.7f;		//값을 올리면 점프속도가 빨라짐
 
 	if (JumpHeight1 < -126.f) {
 		JumpMotionP1 = Motion::DOWN;
-	}
-
-	if (JumpMotionP1 == Motion::UP) {
-		if (_motionP1 == Motion::RIGHT)
-			_motion_cntP1 = 0;
-		else if (_motionP1 == Motion::LEFT)
-			_motion_cntP1 = 2;
-	}
-	else if (JumpMotionP1 == Motion::DOWN) {
-		if (_motionP1 == Motion::RIGHT)
-			_motion_cntP1 = 1;
-		else if (_motionP1 == Motion::LEFT)
-			_motion_cntP1 = 3;
 	}
 
 	if (JumpTime1 > jumpPower1)
@@ -635,24 +706,11 @@ void Player::jump2()
 	_posP2.y += JumpHeight2 - temp2;
 	temp2 = JumpHeight2;
 
-	JumpTime2 += 1.1f;		//값을 올리면 점프속도가 빨라짐
+	JumpTime2 += 0.7f;		//값을 올리면 점프속도가 빨라짐
 
 
 	if (JumpHeight2 < -126.f) {
 		JumpMotionP2 = Motion::DOWN;
-	}
-
-	if (JumpMotionP2 == Motion::UP) {
-		if (_motionP2 == Motion::RIGHT)
-			_motion_cntP2 = 0;
-		else if (_motionP2 == Motion::LEFT)
-			_motion_cntP2 = 2;
-	}
-	else if (JumpMotionP2 == Motion::DOWN) {
-		if (_motionP2 == Motion::RIGHT)
-			_motion_cntP2 = 1;
-		else if (_motionP2 == Motion::LEFT)
-			_motion_cntP2 = 3;
 	}
 
 	if (JumpTime2 > jumpPower2)
@@ -798,6 +856,13 @@ void Player::GapUpdate(KeyType key)
 		}
 	}
 
+	else if (key == KeyType::on) {
+		if (boundingOnOff)
+			boundingOnOff = false;
+		else
+			boundingOnOff = true;
+
+	}
 
 	// 화면 분할
 

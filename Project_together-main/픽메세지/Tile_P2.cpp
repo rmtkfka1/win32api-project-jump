@@ -73,6 +73,7 @@ void Tile_P2::Update()
         }
 
         p->landing2 = true;
+        p->fallP2 = false;
     }
 
 }

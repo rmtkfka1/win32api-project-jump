@@ -87,6 +87,12 @@
     <ClCompile Include="Tile_Climb.cpp">
       <Filter>소스 파일\05.OBJECT</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile_bottom.cpp">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GAME.h">
@@ -154,6 +160,12 @@
       <Filter>소스 파일\05.OBJECT</Filter>
     </ClInclude>
     <ClInclude Include="Tile_Climb.h">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile_bottom.h">
       <Filter>소스 파일\05.OBJECT</Filter>
     </ClInclude>
   </ItemGroup>
