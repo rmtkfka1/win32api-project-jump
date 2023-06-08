@@ -631,6 +631,14 @@ void Stage1::Render(HDC mdc)
 	bg[0]->Render(mdc, player[0]->GetDiffP1(), player[0]->GetDiffP2(), player[0]->GetTurn(), player[0]->GetDivide());
 
 
+
+	const vector<Tile_END*> tile_End = GET_SINGLE(ObjectManager)->GetTileending();
+	for (int i = 0; i < tile_End.size(); ++i)
+	{
+		tile_End[i]->Render(mdc);
+	}
+
+
 	const vector<Tile*> tiles = GET_SINGLE(ObjectManager)->GetTile();
 	for (int i = 0; i < tiles.size(); ++i)
 	{
@@ -733,11 +741,6 @@ void Stage1::Render(HDC mdc)
 		tile_bottom[i]->Render(mdc);
 	}
 
-	const vector<Tile_END*> tile_End = GET_SINGLE(ObjectManager)->GetTileending();
-	for (int i = 0; i < tile_End.size(); ++i)
-	{
-		tile_End[i]->Render(mdc);
-	}
 
 	
 }

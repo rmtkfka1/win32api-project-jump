@@ -22,8 +22,8 @@ void Tile_P1::Init()
 {
     tile_img.Load(L"¸®¼Ò½º\\p1_tile.png");
 
-    size.x = 25;
-    size.y = 25;
+    size.x = 30;
+    size.y = 30;
 }
 
 void Tile_P1::Update()

@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+
 class End :public Scene
 {
 
@@ -16,6 +17,7 @@ public:
 public:
 
 
+	CImage ending_img;
 
 
 };

@@ -23,7 +23,7 @@ Tile_Switch::~Tile_Switch()
 
 void Tile_Switch::Init()
 {
-    tile_img.Load(L"리소스\\스위치.jpeg");
+    tile_img.Load(L"리소스\\스위치수정.png");
 
     size.x = 30;
     size.y = 30;
