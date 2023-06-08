@@ -1,13 +1,16 @@
 #pragma once
+#pragma once
 #include "Object.h"
 
-class Tile : public Object
+class Tile_END : public Object
 {
 
 public:
 
-	Tile();
-	virtual ~Tile() override;
+	Tile_END();
+
+	virtual ~Tile_END() override;
+
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC mdc) override;
@@ -20,8 +23,13 @@ private:
 
 
 	CImage      tile_img;
+
 	Pos			_Renderpos{};		// ·»´õ¸µ ÁÂÇ¥
 
 
-
 };
+
+
+
+
+

@@ -61,7 +61,7 @@ void ObjectManager::Add(Tile_bottom* object)
 	_vTilebottom.push_back(object);
 }
 
-void ObjectManager::Add(Tile_ending* object)
+void ObjectManager::Add(Tile_END* object)
 {
 
 	if (object == nullptr) return;
@@ -74,6 +74,21 @@ void ObjectManager::Add(Tile_ending* object)
 	//////////////////////////////////////
 
 	_vTileending.push_back(object);
+}
+
+void ObjectManager::Add(Tile_Switch* object)
+{
+
+	if (object == nullptr) return;
+
+	//객체 중복검사
+	auto findit = std::find(_vTileSwitch.begin(), _vTileSwitch.end(), object);
+
+	if (findit != _vTileSwitch.end())
+		return;
+	//////////////////////////////////////
+
+	_vTileSwitch.push_back(object);
 }
 
 
@@ -231,7 +246,7 @@ void ObjectManager::Remove(Tile_bottom* object)
 
 }
 
-void ObjectManager::Remove(Tile_ending* object)
+void ObjectManager::Remove(Tile_END* object)
 {
 
 	if (object == nullptr)
@@ -247,6 +262,20 @@ void ObjectManager::Remove(Tile_ending* object)
 
 
 
+}
+
+void ObjectManager::Remove(Tile_Switch* object)
+{
+	if (object == nullptr)
+		return;
+
+	//벡터내에서 삭제//////////////////////////////
+	auto it = std::remove(_vTileSwitch.begin(), _vTileSwitch.end(), object);
+
+	_vTileSwitch.erase(it, _vTileSwitch.end());
+	//////////////////////////////////////////
+	//메모리 삭제
+	delete object;
 }
 
 
@@ -431,7 +460,7 @@ void ObjectManager::Clear()
 	std::for_each(_vmissile.begin(), _vmissile.end(), [=](Missile* obj) {delete obj; });
 	std::for_each(_vTileKB.begin(), _vTileKB.end(), [=](Tile_KnockBack* obj) {delete obj; });
 	std::for_each(_vTilebottom.begin(), _vTilebottom.end(), [=](Tile_bottom* obj) {delete obj; });
-	std::for_each(_vTileending.begin(), _vTileending.end(), [=](Tile_ending* obj) {delete obj; });
+	std::for_each(_vTileending.begin(), _vTileending.end(), [=](Tile_END* obj) {delete obj; });
 
 	//벡터 비우기
 	_player.clear();

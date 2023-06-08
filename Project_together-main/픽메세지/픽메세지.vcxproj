@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="End.cpp" />
     <ClCompile Include="GAME.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="Misile.cpp" />
@@ -147,17 +148,20 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tile_bottom.cpp" />
     <ClCompile Include="Tile_Climb.cpp" />
+    <ClCompile Include="Tile_END.cpp" />
     <ClCompile Include="Tile_KnockBack.cpp" />
     <ClCompile Include="Tile_Moving.cpp" />
     <ClCompile Include="Tile_P1.cpp" />
     <ClCompile Include="Tile_P2.cpp" />
     <ClCompile Include="Tile_Push.cpp" />
+    <ClCompile Include="Tile_Switch.cpp" />
     <ClCompile Include="TImeManager.cpp" />
     <ClCompile Include="기말.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="End.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="GAME.h" />
     <ClInclude Include="KeyManager.h" />
@@ -173,11 +177,13 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Tile_bottom.h" />
     <ClInclude Include="Tile_Climb.h" />
+    <ClInclude Include="Tile_END.h" />
     <ClInclude Include="Tile_KnockBack.h" />
     <ClInclude Include="Tile_Moving.h" />
     <ClInclude Include="Tile_P1.h" />
     <ClInclude Include="Tile_P2.h" />
     <ClInclude Include="Tile_Push.h" />
+    <ClInclude Include="Tile_Switch.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="잡다한것.h" />

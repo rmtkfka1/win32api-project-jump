@@ -1,37 +1,38 @@
 #include "pch.h"
-#include "Tile_P2.h"
+#include "Tile_END.h"
 #include "ObjectManager.h"
 #include "Player.h"
 #include "Object.h"
+#include "SceanManager.h"
 
-
-Tile_P2::Tile_P2() :Object(ObjectType::TILE)
+Tile_END::Tile_END() :Object(ObjectType::TILE)
 {
 
 
 }
 
 
-Tile_P2::~Tile_P2()
+Tile_END::~Tile_END()
 {
     tile_img.Destroy();
 }
 
-void Tile_P2::Init()
+void Tile_END::Init()
 {
-    tile_img.Load(L"리소스\\p2_tile.png");
+    tile_img.Load(L"리소스\\door.png");
 
     size.x = 40;
     size.y = 40;
 }
 
-void Tile_P2::Update()
+void Tile_END::Update()
 {
 
     const vector<Player*>& player = GET_SINGLE(ObjectManager)->GetPlayer();  //벡터를 가져오는
     Player* p = player[0];
 
-    RECT p_rect = { p->_posP2.x,p->_posP2.y,p->_posP2.x + p->GetSize().x ,p->_posP2.y + p->GetSize().y };
+    RECT p_rect = { p->_posP1.x,p->_posP1.y,p->_posP1.x + p->GetSize().x ,p->_posP1.y + p->GetSize().y };
+    RECT p2_rect = { p->_posP2.x,p->_posP2.y,p->_posP2.x + p->GetSize().x ,p->_posP2.y + p->GetSize().y };
     RECT tile_rect = { _pos.x, _pos.y, _pos.x + size.x
         , _pos.y + size.y };
     RECT intersect_rect;
@@ -40,45 +41,16 @@ void Tile_P2::Update()
     if (IntersectRect(&intersect_rect, &p_rect, &tile_rect))
     {
 
-
-        float GapW = intersect_rect.right - intersect_rect.left;
-        float GAPH = intersect_rect.bottom - intersect_rect.top;
-
-        if (GapW > GAPH)
+        if (IntersectRect(&intersect_rect, &p2_rect, &tile_rect))
         {
-
-            if (intersect_rect.top == tile_rect.top)
-            {
-                p->_posP2.y -= GAPH;
-            }
-
-            else if (intersect_rect.bottom == tile_rect.bottom)
-            {
-                p->_posP2.y += GAPH;
-            }
+            GET_SINGLE(SceneManager)->ChangeScene(SceneType::END);
         }
-
-        else
-        {
-            if (intersect_rect.left == tile_rect.left)
-            {
-                p->_posP2.x = p->_posP2.x - GapW;
-            }
-
-            else if (intersect_rect.right == tile_rect.right)
-            {
-                p->_posP2.x = p->_posP2.x + GapW;
-
-            }
-        }
-
-        p->landing2 = true;
-        p->fallP2 = false;
+        
     }
 
 }
 
-void Tile_P2::Render(HDC mdc)
+void Tile_END::Render(HDC mdc)
 {
     mdc2 = CreateCompatibleDC(mdc);
     hBitmap2 = CreateCompatibleBitmap(mdc, tile_img.GetWidth(), tile_img.GetHeight());
@@ -106,6 +78,6 @@ void Tile_P2::Render(HDC mdc)
     DeleteDC(mdc2);
 }
 
-void Tile_P2::BoundingBox(HDC mdc)
+void Tile_END::BoundingBox(HDC mdc)
 {
 }

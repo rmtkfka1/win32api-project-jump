@@ -93,6 +93,15 @@
     <ClCompile Include="Tile_bottom.cpp">
       <Filter>소스 파일\05.OBJECT</Filter>
     </ClCompile>
+    <ClCompile Include="End.cpp">
+      <Filter>소스 파일\04.SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile_END.cpp">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile_Switch.cpp">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GAME.h">
@@ -166,6 +175,15 @@
       <Filter>소스 파일\05.OBJECT</Filter>
     </ClInclude>
     <ClInclude Include="Tile_bottom.h">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="End.h">
+      <Filter>소스 파일\04.SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile_END.h">
+      <Filter>소스 파일\05.OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile_Switch.h">
       <Filter>소스 파일\05.OBJECT</Filter>
     </ClInclude>
   </ItemGroup>

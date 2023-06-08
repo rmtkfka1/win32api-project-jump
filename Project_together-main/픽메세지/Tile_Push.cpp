@@ -4,7 +4,7 @@
 #include "ObjectManager.h"
 #include "Player.h"
 #include "Object.h"
-
+#include "SceanManager.h"
 
 Tile_Push::Tile_Push() :Object(ObjectType::TILE)
 {
@@ -41,6 +41,7 @@ void Tile_Push::Update()
 
     if (IntersectRect(&intersect_rect, &p_rect, &tile_rect))
     {
+
         p->pushBool = true;
 
         p->landing2 = true;

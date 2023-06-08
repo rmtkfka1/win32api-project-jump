@@ -15,8 +15,8 @@
 #include "Tile_Climb.h"
 #include "Monster.h"
 #include "Tile_bottom.h"
-
-
+#include "Tile_END.h"
+#include "Tile_Switch.h"
 
 Stage1::~Stage1()
 {
@@ -49,7 +49,7 @@ void Stage1::Init()
 
 
 	Tile_bottom* tile2 = GET_SINGLE(ObjectManager)->CreateObject<Tile_bottom>();
-	tile2->SetPos(Pos(3400, -1000));
+	tile2->SetPos(Pos(3400, -2000));
 	tile2->Init();
 	tile2->SetSize(Pos(700, 3000));
 	GET_SINGLE(ObjectManager)->Add(tile2);
@@ -150,8 +150,6 @@ void Stage1::Init()
 
 
 
-
-
 	//끝에사다리 타일
 	{
 		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
@@ -162,6 +160,37 @@ void Stage1::Init()
 
 	}
 
+
+	{
+
+		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
+		tile->SetPos(Pos(3200, -920));
+		tile->Init();
+		tile->SetSize(Pos(200, 50));
+		GET_SINGLE(ObjectManager)->Add(tile);
+	}
+
+
+
+
+	//=============================Tile_Switch 만들기 ///////////////////////
+
+	{
+		Tile_Switch* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile_Switch>();
+		tile->SetPos(Pos(1900+75, -920));
+		tile->Init();
+		tile->SetSize(Pos(20, 20));
+		GET_SINGLE(ObjectManager)->Add(tile);
+	}
+
+
+	{
+		Tile_Switch* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile_Switch>();
+		tile->SetPos(Pos(3240, -940));
+		tile->Init();
+		tile->SetSize(Pos(20, 20));
+		GET_SINGLE(ObjectManager)->Add(tile);
+	}
 
 	//============================ Tile_P1 만들기 ==============================//
 	{
@@ -185,8 +214,30 @@ void Stage1::Init()
 	//============================ Tile_P2 만들기 ==============================//
 	{
 
+		{
+			Tile_P2* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile_P2>();
+			tile->SetPos(Pos(2100, -1000));
+			tile->Init();
+			tile->SetSize(Pos(300, 20));
+			GET_SINGLE(ObjectManager)->Add(tile);
+		}
+
+		{
+			Tile_P2* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile_P2>();
+			tile->SetPos(Pos(2500, -1100));
+			tile->Init();
+			tile->SetSize(Pos(50, 20));
+			GET_SINGLE(ObjectManager)->Add(tile);
+		}
 
 
+		{
+			Tile_P2* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile_P2>();
+			tile->SetPos(Pos(2700, -1100));
+			tile->Init();
+			tile->SetSize(Pos(400, 20));
+			GET_SINGLE(ObjectManager)->Add(tile);
+		}
 
 
 
@@ -265,8 +316,17 @@ void Stage1::Init()
 	{
 		MakeTile_KnocBack(1600, 450);
 		MakeTile_KnocBack(2200, -20);
-
+		/// <summary>
+		/// 
+		/// </summary>
+		MakeTile_KnocBack(2760, -1140);
+		MakeTile_KnocBack(2880, -1140);
+		MakeTile_KnocBack(3000, -1140);
 	}
+
+
+
+
 
 	//===============================Tile_Push(밀수있는 타일)만들기======================================//
 
@@ -294,6 +354,54 @@ void Stage1::Init()
 
 
 	//=====================================Monster(몬스터 만들기) =====================================//
+
+
+	{
+
+
+		Monster* monster1 = GET_SINGLE(ObjectManager)->CreateObject<Monster>();
+		monster1->Init();
+		monster1->_move_range = Pos(100, 200);
+		monster1->_DoyouWant_UP = false;
+		monster1->_stat.speed = 6;
+		monster1->SetSize(Pos(20, 20));
+		monster1->SetPos(Pos(2600, -1080));
+		GET_SINGLE(ObjectManager)->Add(monster1);
+
+	}
+
+
+	{
+	
+		Monster* monster1 = GET_SINGLE(ObjectManager)->CreateObject<Monster>();
+		monster1->Init();
+		monster1->_move_range = Pos(200, 200);
+		monster1->_DoyouWant_UP = false;
+		monster1->_isMovingLeft = false;
+		monster1->_stat.speed = 6;
+		monster1->SetSize(Pos(20, 20));
+		monster1->SetPos(Pos(2350, -1190));
+		GET_SINGLE(ObjectManager)->Add(monster1);
+
+	}
+
+	{
+
+		Monster* monster1 = GET_SINGLE(ObjectManager)->CreateObject<Monster>();
+		monster1->Init();
+		monster1->_move_range = Pos(200, 200);
+		monster1->_DoyouWant_UP = false;
+		monster1->_isMovingLeft = false;
+		monster1->_stat.speed = 6;
+		monster1->SetSize(Pos(20, 20));
+		monster1->SetPos(Pos(1900, -1190));
+		GET_SINGLE(ObjectManager)->Add(monster1);
+
+	}
+
+
+
+
 	{
 
 		Monster* monster1 = GET_SINGLE(ObjectManager)->CreateObject<Monster>();
@@ -398,6 +506,19 @@ void Stage1::Init()
 		monster1->SetPos(Pos(800, -600));
 		GET_SINGLE(ObjectManager)->Add(monster1);
 	}
+
+	//=====================================ENDING 타일만들기 ////////////////////////////////////////////////////////
+
+	{
+		Tile_END* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile_END>();
+		tile->SetPos(Pos(3350, -960));
+		tile->Init();
+		tile->SetSize(Pos(40, 40));
+		GET_SINGLE(ObjectManager)->Add(tile);
+
+	}
+
+
 }
 
 void Stage1::Update()
@@ -410,6 +531,11 @@ void Stage1::Update()
 	player[0]->Update();
 
 
+	const vector<Tile_Switch*> tile_switch = GET_SINGLE(ObjectManager)->GetTilSwitch();
+	for (int i = 0; i < tile_switch.size(); ++i)
+	{
+		tile_switch[i]->Update();
+	}
 
 	const vector<Missile*>& missiles = GET_SINGLE(ObjectManager)->GetMissile();
 	for (int i = 0; i < missiles.size(); ++i)
@@ -433,12 +559,16 @@ void Stage1::Update()
 	}
 
 
-
-	const vector<Tile_P2*> tiles_p2 = GET_SINGLE(ObjectManager)->GetTile_P2();
+	if (tile_switch[0]->TURNON || tile_switch[1]->TURNON)
+	{
+		const vector<Tile_P2*> tiles_p2 = GET_SINGLE(ObjectManager)->GetTile_P2();
 	for (int i = 0; i < tiles_p2.size(); ++i)
 	{
 		tiles_p2[i]->Update();
 	}
+	}
+
+	
 
 	const vector<Tile_Moving*> moving_tile = GET_SINGLE(ObjectManager)->GetTile_Moving();
 	for (int i = 0; i < moving_tile.size(); ++i)
@@ -478,6 +608,15 @@ void Stage1::Update()
 		tile_bottom[i]->Update();
 	}
 
+	const vector<Tile_END*> tile_End = GET_SINGLE(ObjectManager)->GetTileending();
+	for (int i = 0; i < tile_End.size(); ++i)
+	{
+		tile_End[i]->Update();
+	}
+
+
+	
+
 	
 
 };
@@ -510,15 +649,24 @@ void Stage1::Render(HDC mdc)
 			tile->BoundingBox(mdc);
 	}
 
-
-	const vector<Tile_P2*> tiles_p2 = GET_SINGLE(ObjectManager)->GetTile_P2();
-	for (Tile_P2* tile : tiles_p2)
+	const vector<Tile_Switch*> tile_switch = GET_SINGLE(ObjectManager)->GetTilSwitch();
+	for (int i = 0; i < tile_switch.size(); ++i)
 	{
-		tile->Render(mdc);
-		if (player[0]->boundingOnOff)
-			tile->BoundingBox(mdc);
+		tile_switch[i]->Render(mdc);
 	}
 
+	
+
+	if (tile_switch[0]->TURNON || tile_switch[1]->TURNON)
+	{
+		const vector<Tile_P2*> tiles_p2 = GET_SINGLE(ObjectManager)->GetTile_P2();
+		for (Tile_P2* tile : tiles_p2)
+		{
+			tile->Render(mdc);
+			if (player[0]->boundingOnOff)
+				tile->BoundingBox(mdc);
+		}
+	}
 
 
 	const vector<Missile*>& missiles = GET_SINGLE(ObjectManager)->GetMissile();
@@ -583,6 +731,12 @@ void Stage1::Render(HDC mdc)
 	for (int i = 0; i < tile_bottom.size(); ++i)
 	{
 		tile_bottom[i]->Render(mdc);
+	}
+
+	const vector<Tile_END*> tile_End = GET_SINGLE(ObjectManager)->GetTileending();
+	for (int i = 0; i < tile_End.size(); ++i)
+	{
+		tile_End[i]->Render(mdc);
 	}
 
 	

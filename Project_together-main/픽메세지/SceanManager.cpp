@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "SceanManager.h"
 #include "Stage1.h"
+#include "Scene.h"
+#include "End.h"
+
 
 
 void SceneManager::Init()
@@ -57,11 +60,11 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	case SceneType::STAGE3:
 		/*newScene = new Stage3();*/
 		break;
-	/*case SceneType::ENDING:
-		newScene = new ending();
-		break;*/
+	//case SceneType::ENDING:
+	//    newScene = new Ending();
+		break;
 	case SceneType::END:
-
+		newScene = new End();
 		break;
 	default:
 		break;
@@ -76,6 +79,7 @@ void SceneManager::ChangeScene(SceneType sceneType)
 
 	_scene = newScene;
 	_sceneType = sceneType;
+
 
 	newScene->Init();
 }

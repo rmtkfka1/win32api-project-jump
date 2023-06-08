@@ -5,6 +5,7 @@
 #include "SceanManager.h"
 
 
+
 GAME::~GAME()
 {
 
@@ -26,6 +27,7 @@ void GAME::Init(HWND _hwnd)
 	GET_SINGLE(SceneManager)->Init();
 	GET_SINGLE(SceneManager)->ChangeScene(SceneType::STAGE1);
 	
+	
 }
 
 void GAME::Update()
@@ -45,8 +47,8 @@ void GAME::Render()
 	{
 		POINT MOUSEPOSE = GET_SINGLE(KeyManager)->GetMousePos();
 
-		wstring str = std::format(L"Mouse({0},{1})", MOUSEPOSE.x, MOUSEPOSE.y);
-		TextOut(mdc, 0, 0, str.c_str(), static_cast<int32>(str.size()));
+	/*	wstring str = std::format(L"Mouse({0},{1})", MOUSEPOSE.x, MOUSEPOSE.y);
+		TextOut(mdc, 0, 0, str.c_str(), static_cast<int32>(str.size()));*/
 	}
 
 	BitBlt(hdc, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, mdc, 0, 0, SRCCOPY);
