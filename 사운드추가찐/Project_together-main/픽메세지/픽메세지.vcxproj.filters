@@ -102,6 +102,9 @@
     <ClCompile Include="Tile_Switch.cpp">
       <Filter>소스 파일\05.OBJECT</Filter>
     </ClCompile>
+    <ClCompile Include="Lobby.cpp">
+      <Filter>소스 파일\04.SCENE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GAME.h">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="Tile_Switch.h">
       <Filter>소스 파일\05.OBJECT</Filter>
+    </ClInclude>
+    <ClInclude Include="Lobby.h">
+      <Filter>소스 파일\04.SCENE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

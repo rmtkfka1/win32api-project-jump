@@ -3,7 +3,7 @@
 #include "TimeManager.h"
 #include "KeyManager.h"
 #include "SceanManager.h"
-
+#include "Lobby.h"
 
 
 GAME::~GAME()
@@ -25,7 +25,7 @@ void GAME::Init(HWND _hwnd)
 	GET_SINGLE(TimeManager)->Init();
 	GET_SINGLE(KeyManager)->Init(hwnd);
 	GET_SINGLE(SceneManager)->Init();
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::STAGE1);
+	GET_SINGLE(SceneManager)->ChangeScene(SceneType::LOBBY);
 	
 	
 }

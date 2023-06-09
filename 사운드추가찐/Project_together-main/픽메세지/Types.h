@@ -14,6 +14,13 @@ struct Pos {
 	float x{};
 	float y{};
 
+	Pos(){}
+
+	Pos(int ix, int iy) {
+		x = static_cast<float>(ix);
+		y = static_cast<float>(iy);
+	}
+
 	RECT operator+(const RECT& r) {
 		RECT ret{};
 		ret.left	= x + r.left;

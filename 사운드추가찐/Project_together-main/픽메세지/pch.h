@@ -1,5 +1,6 @@
 #pragma once
 #include <windows.h>
+#include <iostream>
 #include <vector>
 #include <list>
 #include <map>
@@ -12,5 +13,10 @@
 #include <format>
 #include <filesystem>
 #include "atlImage.h"
+
+// »ç¿îµå
+#include "fmod.hpp"
+#include "fmod_errors.h"
+
 
 using namespace std;

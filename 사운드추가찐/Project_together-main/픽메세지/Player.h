@@ -147,4 +147,10 @@ public:
 	float			_collisionLeftP1{};
 	float			_collisionLeftP2{};
 
+	// 사운드 추가 부분
+	FMOD::System* ssystem;
+	FMOD::Sound* sound1;
+	FMOD::Channel* channel;
+	FMOD_RESULT result;
+	void* extradriverdata = 0;
 };

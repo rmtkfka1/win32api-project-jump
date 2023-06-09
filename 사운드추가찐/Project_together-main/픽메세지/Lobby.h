@@ -1,15 +1,12 @@
 #pragma once
 #include "Scene.h"
-
-class Player;
-class BackGround;
-
-
-class Stage1 : public Scene
+class Lobby : public Scene
 {
 public:
-	DECLARE_SINGLE(Stage1);
-	virtual ~Stage1();
+
+	DECLARE_SINGLE(Lobby);
+	virtual ~Lobby();
+
 
 	virtual void Init() override;
 	virtual void Update() override;
@@ -17,6 +14,11 @@ public:
 	void BoundingBox(HDC mdc);
 
 public:
+
+
+
+	CImage Lobby_img;
+
 
 };
 

@@ -3,7 +3,7 @@
 #include "Stage1.h"
 #include "Scene.h"
 #include "End.h"
-
+#include "Lobby.h"
 
 
 void SceneManager::Init()
@@ -48,14 +48,13 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	{
 	case SceneType::NONE:
 		break;
-	case SceneType::LOBBY:
-		//newScene = new Lobby();
+
 		break;
 	case SceneType::STAGE1:
 		newScene = new Stage1();
 		break;
-	case SceneType::STAGE2:
-		/*newScene = new Stage2();*/
+	case SceneType::LOBBY:
+		newScene = new Lobby();
 		break;
 	case SceneType::STAGE3:
 		/*newScene = new Stage3();*/

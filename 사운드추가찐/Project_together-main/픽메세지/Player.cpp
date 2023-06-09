@@ -108,6 +108,16 @@ void Player::Init(BackGround* background) {
 	FIRE = FALSE;
 	fire_img.Load(L"리소스\\fire.png");
 
+	// 사운드
+	result = FMOD::System_Create(&ssystem);
+
+	
+	// P1_JUMP.wav
+	// C:\Users\Seong Gyu\Desktop\Project_together\픽메세지\사운드
+
+	ssystem->init(32, FMOD_INIT_NORMAL, extradriverdata); //--- 사운드 시스템 초기화
+	ssystem->createSound("P1_JUMP.wav", 
+		FMOD_DEFAULT, 0, &sound1); //--- 1번 사운드 생성 및 설정
 }
 
 
@@ -218,6 +228,10 @@ void Player::Update() {
 				JumpMotionP1 = Motion::UP;
 				landing1 = false;
 				fallP1 = true;
+
+
+				channel->setVolume(0.000001f);
+				ssystem->playSound(sound1, 0, false, &channel); //--- 1번 사운드 재생
 			}
 		}
 
@@ -376,13 +390,16 @@ void Player::Update() {
 	if (Gravity1)
 	{
 		_posP1.y += 10;
-		
+		if (landing1)
+			fallP1 = true;
 	}
 
 
 	if (Gravity2)
 	{
 		_posP2.y += 10;
+		if (landing2)
+			fallP2 = true;
 	}
 
 }
@@ -391,8 +408,8 @@ void Player::Render(HDC mdc) {
 
 	// player1
 	// ====================================
-	swprintf_s(test, L"rand1 :%d", landing1);
-	TextOut(mdc, 600, 0, test, lstrlen(test));
+	//swprintf_s(test, L"rand1 :%d", landing1);
+	//TextOut(mdc, 600, 0, test, lstrlen(test));
 
 	hBitmapP1 = CreateCompatibleBitmap(mdc, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mdcP1 = CreateCompatibleDC(mdc);

@@ -21,8 +21,11 @@ void BackGround::Init(){
 	background_img.Load(L"¸®¼Ò½º\\BackGround.png");
 
 
-	_PosP1 = { 0, static_cast<float>(background_img.GetHeight() - WINDOW_HEIGHT)};
-	_PosP2 = { 0, static_cast<float>(background_img.GetHeight() - WINDOW_HEIGHT) };
+	_PosP1.x = 0.f;
+	_PosP1.y = static_cast<float>(background_img.GetHeight() - WINDOW_HEIGHT);
+	_PosP2.x = 0.f;
+	_PosP2.y = static_cast<float>(background_img.GetHeight() - WINDOW_HEIGHT);
+
 	_RenderposP1 = _PosP1;
 	_RenderposP2 = _PosP2;
 
