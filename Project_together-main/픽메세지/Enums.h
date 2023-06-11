@@ -26,10 +26,11 @@ enum class KeyType
 	Z = 'Z',
 	X = 'X',
 	I = '1',
-	O='2',
-	P='3',
-	Q='Q',
+	O = '2',
+	P = '3',
+	Q = 'Q',
 
+	U = 'U',
 	on ='O'
 
 

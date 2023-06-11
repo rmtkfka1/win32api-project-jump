@@ -17,7 +17,6 @@ BackGround::~BackGround()
 
 	ssystem->release();
 
-
 }
 
 void BackGround::Init() {

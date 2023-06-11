@@ -76,8 +76,10 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	//이미씬이 존재하는 경우 씬삭제
 	if (_scene)
 	{
+
 		delete _scene;
 		_scene = nullptr;
+
 	}
 
 	_scene = newScene;

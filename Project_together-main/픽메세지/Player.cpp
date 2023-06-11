@@ -315,7 +315,7 @@ void Player::Update() {
 		}
 
 
-		if (GET_SINGLE(KeyManager)->Getbutton(KeyType::Z))//테스트용
+		if (GET_SINGLE(KeyManager)->Getbutton(KeyType::U))//테스트용
 		{
 			_posP2.y -= _stat.speed * deletaTime * 10;
 		}
