@@ -139,7 +139,7 @@ void Stage1::Init()
 	{
 
 		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
-		tile->SetPos(Pos(1150, 0));
+		tile->SetPos(Pos(1120, 0));
 		tile->Init();
 		tile->SetSize(Pos(150, 50));
 		GET_SINGLE(ObjectManager)->Add(tile);
@@ -306,12 +306,12 @@ void Stage1::Init()
 	{
 		Tile_Moving* moving_tile3 = GET_SINGLE(ObjectManager)->CreateObject<Tile_Moving>();
 		moving_tile3->Init();
-		moving_tile3->_move_range = Pos(0, 250);
+		moving_tile3->_move_range = Pos(0, 200);
 		moving_tile3->_stat.speed = 3;
 		moving_tile3->_DoyouWant_UP = true;
 		moving_tile3->_isMovingUp = true;
 		moving_tile3->SetSize(Pos(100, 40));
-		moving_tile3->SetPos(Pos(1250, -300));
+		moving_tile3->SetPos(Pos(1250, -450));
 		GET_SINGLE(ObjectManager)->Add(moving_tile3);
 	}
 
@@ -340,8 +340,8 @@ void Stage1::Init()
 			Tile_KnockBack* tile_knockback = GET_SINGLE(ObjectManager)->CreateObject<Tile_KnockBack>();
 			tile_knockback->Init();
 	
-			tile_knockback->SetSize(Pos(120, 140));
-			tile_knockback->SetPos(Pos(1600, 360));
+			tile_knockback->SetSize(Pos(110, 130));
+			tile_knockback->SetPos(Pos(1600, 370));
 			GET_SINGLE(ObjectManager)->Add(tile_knockback);
 		}
 
@@ -596,7 +596,8 @@ void Stage1::Update()
 		tiles_p1[i]->Update();
 	}
 
-	if (tile_switch.size() != 0) {
+
+	if (tile_switch[0]->TURNON || tile_switch[1]->TURNON) {
 		const vector<Tile_P2*> tiles_p2 = GET_SINGLE(ObjectManager)->GetTile_P2();
 		for (int i = 0; i < tiles_p2.size(); ++i)
 		{
@@ -784,6 +785,11 @@ void Stage1::Render(HDC mdc)
 	{
 		TT[i]->Render(mdc);
 	}
+
+
+
+
+
 
 	
 }

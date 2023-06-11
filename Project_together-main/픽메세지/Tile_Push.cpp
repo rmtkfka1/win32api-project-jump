@@ -47,7 +47,7 @@ void Tile_Push::Update()
         if (IntersectRect(&intersect_rect, &p_rect, &tile_rect))
         {
 
-            p->pushBool = true;
+         
 
 
 
@@ -59,6 +59,7 @@ void Tile_Push::Update()
 
                 if (intersect_rect.top == tile_rect.top)
                 {
+
                     p->_posP2.y -= GAPH;
                     p->landing2 = true;
                     p->fallP2 = false;
@@ -66,6 +67,7 @@ void Tile_Push::Update()
 
                 else if (intersect_rect.bottom == tile_rect.bottom)
                 {
+
                     p->_posP2.y += GAPH;
                 }
             }
@@ -74,11 +76,13 @@ void Tile_Push::Update()
             {
                 if (intersect_rect.left == tile_rect.left)
                 {
+                    p->pushBool = true;
                     p->_posP2.x = p->_posP2.x - GapW;
                 }
 
                 else if (intersect_rect.right == tile_rect.right)
                 {
+                    p->pushBool = true;
                     p->_posP2.x = p->_posP2.x + GapW;
 
                 }

@@ -3,7 +3,7 @@
 #include "GAME.h"
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = L"Window Class Name";
-LPCTSTR lpszWindowName = L"Window Programming Lab";
+LPCTSTR lpszWindowName = L"JUMP JUMP";
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 
 

@@ -63,6 +63,7 @@ void Tile_Climb::Update()
 
             }
 
+            p->landing1 = true;
             p->intersect_sadari1 = true;
        
       
@@ -101,6 +102,7 @@ void Tile_Climb::Update()
 
             }
 
+            p->landing2 = true;
             p->intersect_sadari2 = true;
         }
         else

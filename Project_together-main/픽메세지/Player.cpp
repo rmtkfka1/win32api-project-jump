@@ -253,6 +253,8 @@ void Player::Update() {
 				Gravity1 = false;
 				_posP1.y -= _stat.speed * deletaTime;
 				_motion_cntP1 += deletaTime * 10;
+
+
 				if (_motion_cntP1 > 4.f)
 					_motion_cntP1 = 0.f;
 
@@ -263,7 +265,12 @@ void Player::Update() {
 				JumpTime1 = 0;
 				JumpHeight1 = 0;
 
-			
+				const vector<Tile_Climb*>& B = GET_SINGLE(ObjectManager)->GetTileClimb();   //벡터를 가져오는것
+
+				_pos.x = B[0]->_pos.x;
+
+
+		
 
 			}
 		}
