@@ -139,7 +139,7 @@ void Stage1::Init()
 	{
 
 		Tile* tile = GET_SINGLE(ObjectManager)->CreateObject<Tile>();
-		tile->SetPos(Pos(1120, 0));
+		tile->SetPos(Pos(1160, 0));
 		tile->Init();
 		tile->SetSize(Pos(150, 50));
 		GET_SINGLE(ObjectManager)->Add(tile);
@@ -340,8 +340,8 @@ void Stage1::Init()
 			Tile_KnockBack* tile_knockback = GET_SINGLE(ObjectManager)->CreateObject<Tile_KnockBack>();
 			tile_knockback->Init();
 
-			tile_knockback->SetSize(Pos(110, 130));
-			tile_knockback->SetPos(Pos(1600, 370));
+			tile_knockback->SetSize(Pos(110, 110));
+			tile_knockback->SetPos(Pos(1600, 390));
 			GET_SINGLE(ObjectManager)->Add(tile_knockback);
 		}
 
